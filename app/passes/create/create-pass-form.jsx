@@ -18,13 +18,11 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export default function CreatePassForm() {
+function PassFormContent({ editId }) {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const editId = searchParams.get('edit')
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState("front")
-  const [selectedWallet, setSelectedWallet] = useState("apple") // or "google"
+  const [selectedWallet, setSelectedWallet] = useState("apple")
   const [frontFeatures, setFrontFeatures] = useState({
     passName: "",
     logo: null,
@@ -41,7 +39,6 @@ export default function CreatePassForm() {
   const [notificationIcon, setNotificationIcon] = useState(null)
 
   useEffect(() => {
-    // Simulate loading data if in edit mode
     if (editId) {
       setTimeout(() => {
         setIsLoading(false)
@@ -117,4 +114,11 @@ export default function CreatePassForm() {
       </div>
     </div>
   )
+}
+
+export default function CreatePassForm() {
+  const searchParams = useSearchParams()
+  const editId = searchParams.get('edit')
+
+  return <PassFormContent editId={editId} />
 } 
